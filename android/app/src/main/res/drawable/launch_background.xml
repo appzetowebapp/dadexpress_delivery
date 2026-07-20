@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Matches Flutter splash background so there is no visible "app launcher" before splash -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#B3B3B3" />
+        </shape>
+    </item>
+</layer-list>

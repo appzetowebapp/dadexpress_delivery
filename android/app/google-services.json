@@ -1,0 +1,85 @@
+{
+  "project_info": {
+    "project_number": "210018822653",
+    "firebase_url": "https://dad-express-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "dad-express",
+    "storage_bucket": "dad-express.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:210018822653:android:b71a47e10c852ea8d41194",
+        "android_client_info": {
+          "package_name": "com.dadexpress.delivery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "210018822653-6u60b4dlbc7c9p9keb29fvuul8ftfe5q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCwID17z3YIvpzzfBoSbYUX6fZnSz34TA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "210018822653-6u60b4dlbc7c9p9keb29fvuul8ftfe5q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:210018822653:android:dce641812dc32db5d41194",
+        "android_client_info": {
+          "package_name": "com.dadexpress.user"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "210018822653-h12dkhjnjl654gtbsl7p8r90oi4a34jl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dadexpress.user",
+            "certificate_hash": "8dc0392a013f40e545556dd7a0bfd5f2a2cdc85d"
+          }
+        },
+        {
+          "client_id": "210018822653-j0bqvgn8vvvofdskro34g06orhgc16il.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dadexpress.user",
+            "certificate_hash": "c4aa3042fbd0fdd317c5b912b3d26dcef50a564e"
+          }
+        },
+        {
+          "client_id": "210018822653-6u60b4dlbc7c9p9keb29fvuul8ftfe5q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCwID17z3YIvpzzfBoSbYUX6fZnSz34TA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "210018822653-6u60b4dlbc7c9p9keb29fvuul8ftfe5q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
