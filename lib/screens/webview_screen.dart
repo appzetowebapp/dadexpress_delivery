@@ -4101,6 +4101,7 @@ class _WebViewScreenState extends State<WebViewScreen> with WidgetsBindingObserv
         await [
           Permission.location,
           Permission.locationAlways,
+          Permission.ignoreBatteryOptimizations,
         ].request();
 
         // Update UI immediately
@@ -5511,7 +5512,7 @@ class _WebViewScreenState extends State<WebViewScreen> with WidgetsBindingObserv
                             try {
                               final XFile? image = await picker.pickImage(
                                 source: ImageSource.camera,
-                                imageQuality: 80,
+                                imageQuality: 50,
                               );
                               
                               if (image != null) {

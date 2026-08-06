@@ -76,7 +76,7 @@ class AppConfig {
 
 
     // Critical Notification channel for orders (Android)
-  static const String criticalChannelId = 'critical_order_alerts_v5';
+  static const String criticalChannelId = 'critical_order_alerts_v6';
   static const String criticalChannelName = 'New Order Alerts';
   static const String criticalChannelDescription = 'Urgent notifications for new restaurant orders';
 

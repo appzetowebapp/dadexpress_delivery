@@ -14,6 +14,7 @@ class PermissionHandlerUtil {
         Permission.photos,
         Permission.notification,
         Permission.storage,
+        Permission.ignoreBatteryOptimizations,
       ].request();
 
       // Check if all permissions are granted
@@ -133,6 +134,7 @@ class PermissionHandlerUtil {
       Permission.photos: 'Photos',
       Permission.notification: 'Notification',
       Permission.storage: 'Storage',
+      Permission.ignoreBatteryOptimizations: 'Battery Optimization',
     };
 
     for (var entry in permissions.entries) {
