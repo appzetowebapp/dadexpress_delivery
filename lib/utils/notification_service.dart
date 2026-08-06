@@ -649,7 +649,20 @@ class NotificationService {
     debugPrint('📨 Message data: ${message.data}');
 
     RemoteNotification? notification = message.notification;
-    Map<String, dynamic>? data = message.data;
+    Map<String, dynamic> data = message.data;
+
+    debugPrint('================ FCM RECEIVED (FOREGROUND) ================');
+    debugPrint('📦 Raw message.toMap(): ${message.toMap()}');
+    debugPrint('📝 Title: ${notification?.title}');
+    debugPrint('📝 Body: ${notification?.body}');
+    debugPrint('📋 Data: $data');
+    debugPrint('🆔 MessageId: ${message.messageId}');
+    debugPrint('🆔 OrderId: ${data['orderId'] ?? data['order_id'] ?? data['id']}');
+    debugPrint('🏷️ Type: ${data['type']}');
+    debugPrint('👤 UserId: ${data['userId'] ?? data['user_id']}');
+    debugPrint('🚚 DeliveryPartnerId: ${data['deliveryPartnerId'] ?? data['delivery_partner_id'] ?? data['partnerId'] ?? data['riderId']}');
+    debugPrint('📱 App State: foreground');
+    debugPrint('========================================================================');
 
     // Create unique ID for this notification
     String notificationId = message.messageId ?? '';
@@ -676,8 +689,12 @@ class NotificationService {
     final isOrder = data['type'] == 'order' || 
                     data['type'] == 'NEW_ORDER' ||
                      data['type'] == 'new_order' ||
+                     data['type'] == 'new_order_available' ||
                     (notification?.title?.toLowerCase().contains('order') ?? false) ||
                     (notification?.body?.toLowerCase().contains('order') ?? false);
+
+    debugPrint('🔊 Foreground Notification check - type: ${data['type']}, title: ${notification?.title}, body: ${notification?.body}');
+    debugPrint('🔊 Foreground isOrder matched: $isOrder -> ${isOrder ? "WILL PLAY RING SOUND" : "WILL NOT PLAY RING SOUND"}');
 
     if (isOrder) {
       // Show notification on critical channel
@@ -693,16 +710,6 @@ class NotificationService {
     if (notification != null) {
       debugPrint('📨 Notification title: ${notification.title}');
       debugPrint('📨 Notification body: ${notification.body}');
-
-      // Check if this notification was already shown (prevent duplicates)
-      if (_shownNotificationIds.contains(uniqueId)) {
-        debugPrint('⚠️ Duplicate notification detected, skipping: $uniqueId');
-        return;
-      }
-
-      // Mark as shown
-      _shownNotificationIds.add(uniqueId);
-      _notificationTimestamps[uniqueId] = DateTime.now();
 
       // Ensure notification service is initialized
       if (!_isInitialized) {
@@ -735,22 +742,6 @@ class NotificationService {
       final title = data['title']?.toString() ?? 'Notification';
       final body =
           data['body']?.toString() ?? data['message']?.toString() ?? '';
-
-      // Create unique ID for data-only messages
-      final String uniqueId = notificationId.isNotEmpty
-          ? notificationId
-          : '${title}_${body}_${message.sentTime?.millisecondsSinceEpoch ?? DateTime.now().millisecondsSinceEpoch}';
-
-      // Check for duplicates
-      if (_shownNotificationIds.contains(uniqueId)) {
-        debugPrint(
-            '⚠️ Duplicate data-only notification detected, skipping: $uniqueId');
-        return;
-      }
-
-      // Mark as shown
-      _shownNotificationIds.add(uniqueId);
-      _notificationTimestamps[uniqueId] = DateTime.now();
 
       if (!_isInitialized) {
         await initialize();
@@ -912,6 +903,8 @@ class NotificationService {
         debugPrint('📦 Order notification tapped, orderId: $orderId');
     }
     
+    cancelAllOrderNotifications();
+
     _tapController.add(data);
   }
 
@@ -1113,6 +1106,7 @@ class NotificationService {
     String? notificationId,
   }) async {
     debugPrint('🔔 showOrderNotification (Urgent) - Title: "$title"');
+    debugPrint('🔊 PLAYING RING SOUND for Order Notification. Payload: $payload');
 
     if (!_isInitialized) {
       await initialize();
@@ -1135,8 +1129,8 @@ class NotificationService {
       enableVibration: true,
       vibrationPattern: Int64List.fromList([0, 1000, 500, 1000, 500, 1000]), // Custom vibration
       fullScreenIntent: true, // Show on lock screen
-      ongoing: true, // Make it ongoing until acted upon
-      autoCancel: false, // Don't auto-cancel on tap (we handle it)
+      ongoing: false, // Allow swipe to dismiss
+      autoCancel: true, // Auto-cancel on tap
       additionalFlags: Int32List.fromList([4]), // FLAG_INSISTENT = 4 (loops sound)
       icon: AppConfig.notificationIcon,
       styleInformation: const BigTextStyleInformation(''),
